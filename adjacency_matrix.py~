@@ -456,6 +456,9 @@ class nxn_matrix:
 	
 	def get_height():
 		return self._height
-	
+		
 
+mat1 = nxn_matrix(3, 3, [6, 1, 1, 4, -2, 5, 2, 8, 7])
+print(mat1)
+print(mat1.determinant())
 
