@@ -1,5 +1,8 @@
 #/usr/bin/python
 #Joseph Davies
+#publically availible library under GLPv2
+#source: https://github.com/Joseph-Davies/adjacency-matrix
+
 import ast
 
 class nxn_matrix:
