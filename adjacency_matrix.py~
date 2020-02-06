@@ -166,7 +166,7 @@ class nxn_matrix:
 				i += 1
 			return output
 	
-	def __rtruediv__(other, other):
+	def __rtruediv__(self, other):
 		if type(other) is nxn_matrix:
 			output = nxn_matrix(other._width, other._height, other._data.copy())
 			i = 0
@@ -456,9 +456,88 @@ class nxn_matrix:
 	
 	def get_height():
 		return self._height
-		
+	
 
-mat1 = nxn_matrix(3, 3, [6, 1, 1, 4, -2, 5, 2, 8, 7])
-print(mat1)
-print(mat1.determinant())
+class adjacency_matrix(nxn_matrix):
+	def __init__(self, width, height):
+		nxn_matrix.__init__(self, width, height)
+		self._header = []
+		
+	def load_from_xml(self, xml_reader_instance):
+		pass
+		
+	def load_from_matrix(self, matrix):
+		self._data = matrix._data
+		self._width = matrix._width
+		self._height = matrix._height
+	
+	def set_header(self, header):
+		self._header = header	
+	
+	def set(x, y, val):
+		self._set_i2dr(x, y, val)
+	
+	def get(x, y)
+		self._i2dr(x, y)
+		
+	def __str__(self):
+		max_length = 0
+		for name in self._header:
+			if len(name) > max_length:
+				max_length = len(name)
+		for number in self._data:
+			if len(str(number)) > max_length:
+				max_length = len(str(number))
+		
+		output = ""
+		output += " " * max_length
+		output += "   "
+		
+		for name in self._header:
+			output += ("{0:" + str(max_length) + "}").format(name)
+			output += " "
+		output += "  \n"
+		
+		
+		for y in range(self._height):
+			output += ("{0:" + str(max_length) + "}").format(header[y])
+			if y == 0:
+				output  += " " + u'\u250c' + " "
+			elif y == self._height - 1:
+				output  += " " + u'\u2514' + " "
+			else:
+				output += " " + u'\u2502' + " "
+			for x in range(self._width):
+				if x == y:
+					output += " " * (max_length - 1)
+					output += "x"
+					output += " "
+				else:
+					output += ("{0:" + str(max_length) + "}").format(self._i2dr(x, y))
+					output += " "
+			if y == 0:
+				output  += " " + u'\u2510' + " "
+			elif y == self._height - 1:
+				output  += " " + u'\u2518' + " "
+			else:
+				output += " " + u'\u2502' + " "
+			
+			output += "\n"
+	
+		return output
+
+
+'''
+am = adjacency_matrix(3, 3)
+am._data = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+header = ["hi", "yo", "yeet"]
+am.set_header(header)
+'''
+am = adjacency_matrix(2, 2)
+am._data = [1, 2, 3, 4]
+header = ["hi", "yo"]
+am.set_header(header)
+
+print(am)
+
 
