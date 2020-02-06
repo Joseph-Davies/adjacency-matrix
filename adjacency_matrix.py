@@ -249,7 +249,7 @@ class nxn_matrix:
 			
 	#--------------------------------------assignment operations-----------------------------	
 	def __iadd__(self, other):
-		if type(other) is nxn_matrix:
+		if type(other) is nxn_matrix or type(other) is adjacency_matrix:
 			i = 0
 			while i < len(self._data):
 				self._data[i] += other._data[i]
@@ -259,7 +259,8 @@ class nxn_matrix:
 			while i < len(self._data):
 				self._data[i] += other
 				i += 1
-	
+		return self
+		
 	def __isub__(self, other):
 		if type(other) is nxn_matrix:
 			i = 0
@@ -271,6 +272,7 @@ class nxn_matrix:
 			while i < len(self._data):
 				self._data[i] -= other
 				i += 1
+		return self
 	
 	def __imul__(self, other):
 		if type(other) is nxn_matrix:
@@ -283,6 +285,7 @@ class nxn_matrix:
 			while i < len(self._data):
 				self._data[i] *= other
 				i += 1
+		return self
 	
 	def __itruediv__(self, other):
 		if type(other) is nxn_matrix:
@@ -295,6 +298,7 @@ class nxn_matrix:
 			while i < len(self._data):
 				self._data[i] /= other
 				i += 1
+		return self
 	
 	def __ifloordiv__(self, other):
 		if type(other) is nxn_matrix:
@@ -307,6 +311,7 @@ class nxn_matrix:
 			while i < len(self._data):
 				self._data[i] //= other
 				i += 1
+		return self
 	
 	def __imod__(self, other):
 		if type(other) is nxn_matrix:
@@ -319,6 +324,7 @@ class nxn_matrix:
 			while i < len(self._data):
 				self._data[i] %= other
 				i += 1
+		return self
 	
 	def __ipow__(self, other):
 		if type(other) is nxn_matrix:
@@ -331,6 +337,7 @@ class nxn_matrix:
 			while i < len(self._data):
 				self._data[i] **= other
 				i += 1
+		return self
 				
 	#----------------------------------other operations------------------------------------
 	def __neg__(self):
@@ -566,7 +573,4 @@ class adjacency_matrix(nxn_matrix):
 			output += "\n"
 	
 		return output
-
-
-
 
