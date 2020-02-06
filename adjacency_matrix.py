@@ -1,5 +1,6 @@
 #/usr/bin/python
 #Joseph Davies
+import ast
 
 class nxn_matrix:
 	def __init__(self, width, height, initial_data = None):
@@ -463,8 +464,22 @@ class adjacency_matrix(nxn_matrix):
 		nxn_matrix.__init__(self, width, height)
 		self._header = []
 		
-	def load_from_xml(self, xml_reader_instance):
-		pass
+	def load_from_csv(self, csv_reader_instance):
+		i = 0
+		for row in csv_reader_instance:
+			if i == 0:
+				self.set_header(row)
+				i += 1
+				continue
+			
+			j = 0
+			while j < len(row):
+				try:
+					self._set_i2dr(i, j, ast.literal_eval(row[j]))
+				except:
+					self._set_i2dr(i, j, row[j])
+				j += 1
+			i += 1
 		
 	def load_from_matrix(self, matrix):
 		self._data = matrix._data
@@ -477,8 +492,26 @@ class adjacency_matrix(nxn_matrix):
 	def set(x, y, val):
 		self._set_i2dr(x, y, val)
 	
-	def get(x, y)
+	def get(x, y):
 		self._i2dr(x, y)
+		
+	def _index_string(self, string):
+		i = 0
+		while i < len(self._header):
+			if self._header[i] == string:
+				return i
+			i += 1
+		return None
+	
+	def get_pair(self, row, collum):
+		row_index = self._index_string(row)
+		collum_index = self._index_string(collum)
+		return self._i2dr(row_index, collum_index)
+	
+	def set_pair(self, row, collum, val):
+		row_index = self._index_string(row)
+		collum_index = self._index_string(collum)
+		return self._set_i2dr(row_index, collum_index, val)
 		
 	def __str__(self):
 		max_length = 0
@@ -500,7 +533,7 @@ class adjacency_matrix(nxn_matrix):
 		
 		
 		for y in range(self._height):
-			output += ("{0:" + str(max_length) + "}").format(header[y])
+			output += ("{0:" + str(max_length) + "}").format(self._header[y])
 			if y == 0:
 				output  += " " + u'\u250c' + " "
 			elif y == self._height - 1:
