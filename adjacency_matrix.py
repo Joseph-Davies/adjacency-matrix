@@ -257,7 +257,7 @@ class nxn_matrix:
 		else:
 			i = 0
 			while i < len(self._data):
-				output._data[i] += other
+				self._data[i] += other
 				i += 1
 	
 	def __isub__(self, other):
@@ -269,7 +269,7 @@ class nxn_matrix:
 		else:
 			i = 0
 			while i < len(self._data):
-				output._data[i] -= other
+				self._data[i] -= other
 				i += 1
 	
 	def __imul__(self, other):
@@ -281,7 +281,7 @@ class nxn_matrix:
 		else:
 			i = 0
 			while i < len(self._data):
-				output._data[i] *= other
+				self._data[i] *= other
 				i += 1
 	
 	def __itruediv__(self, other):
@@ -293,7 +293,7 @@ class nxn_matrix:
 		else:
 			i = 0
 			while i < len(self._data):
-				output._data[i] /= other
+				self._data[i] /= other
 				i += 1
 	
 	def __ifloordiv__(self, other):
@@ -305,7 +305,7 @@ class nxn_matrix:
 		else:
 			i = 0
 			while i < len(self._data):
-				output._data[i] //= other
+				self._data[i] //= other
 				i += 1
 	
 	def __imod__(self, other):
@@ -317,7 +317,7 @@ class nxn_matrix:
 		else:
 			i = 0
 			while i < len(self._data):
-				output._data[i] %= other
+				self._data[i] %= other
 				i += 1
 	
 	def __ipow__(self, other):
@@ -329,7 +329,7 @@ class nxn_matrix:
 		else:
 			i = 0
 			while i < len(self._data):
-				output._data[i] **= other
+				self._data[i] **= other
 				i += 1
 				
 	#----------------------------------other operations------------------------------------
@@ -480,12 +480,20 @@ class adjacency_matrix(nxn_matrix):
 					self._set_i2dr(i, j, row[j])
 				j += 1
 			i += 1
+	
+	def set_new_matrix_data(self, matrix):
+		self._data = matrix._data
+		self._width = matrix._width
+		self._height = matrix._height
 		
 	def load_from_matrix(self, matrix):
 		self._data = matrix._data
 		self._width = matrix._width
 		self._height = matrix._height
 	
+	def get_header(self):
+		return self._header	
+		
 	def set_header(self, header):
 		self._header = header	
 	
